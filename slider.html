@@ -13,6 +13,84 @@
 			<div class="slide"><img src="https://cdn.pixabay.com/photo/2020/01/28/19/44/runner-4800810__340.jpg"></div>
 		</div>
 	</div>
+	<div class="bottom-tab">
+    	<div class="title">PUG</div>
+        <div class="content">
+        	<pre>doctype html
+head
+  meta(charset='UTF-8')
+  title Slider
+#mySlider
+  .slides
+    .slide
+      h1 just text
+    .slide
+      img(src='https://cdn.pixabay.com/photo/2020/01/10/22/52/cat-4756360__340.jpg')
+      h1 Text on image
+    .slide
+      img(src='https://cdn.pixabay.com/photo/2017/04/05/01/16/old-school-2203733__340.jpg')
+    .slide
+      img(src='https://cdn.pixabay.com/photo/2020/01/28/19/44/runner-4800810__340.jpg')
+style.
+  body{
+  margin: 0;
+  }
+  #mySlider{
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+  }
+  #mySlider .slides{
+  display: flex;
+  height: inherit;
+  width: inherit;
+  }
+  #mySlider .slide{
+  width: inherit;
+  height: inherit;
+  overflow:hidden;
+  position: relative;
+  opacity: 0;
+  max-width: 0;
+  transform-origin: left;
+  transition: 1s ease-out;
+  }
+  #mySlider .slide *{
+  position: absolute;
+  }
+  #mySlider img{
+  height: inherit;
+  width: inherit;
+  object-fit: cover;
+  }
+script.
+  var slides;
+  document.addEventListener("DOMContentLoaded", ()=&gt;{
+  slides = document.querySelector('#mySlider&gt;.slides').children;
+  for(var i = 0, slide; slide = slides[i]; i++){
+  slide.setAttribute("slide-cnt", i);
+  }
+  slides[0].style.opacity = 1;
+  slideShow();
+  });
+  var slidecnt = 0;
+  function slideShow(){
+  slides[slidecnt].style.opacity = 0;
+  slides[slidecnt].style.maxWidth = "0%";
+  if(slidecnt &gt;= slides.length-1){
+  slidecnt = 0;
+  }else{
+  slidecnt++;
+  }
+  slides[slidecnt].style.opacity = 1;
+  slides[slidecnt].style.maxWidth = "100%";
+  console.log(slidecnt, slides.length);
+  setTimeout(slideShow,5000);
+  }
+
+</pre>
+        </div>
+    </div>
 	<style>
 		body{
 			margin: 0;
@@ -44,6 +122,32 @@
 			height: inherit;
 			width: inherit;
 			object-fit: cover;
+		}
+		.bottom-tab{
+		    color:#fff;
+		    position:fixed;
+		    z-index: 9;
+		    height: 50vh;
+		    width:100vw;
+		    top:calc( 100vh - 20px );
+		    transition:top .2s ease-out;
+		}
+		.bottom-tab .title{
+		    width: 100px;
+		    background-color: #333;
+		    height: 20px;
+		    cursor:pointer;
+		    user-select:none;
+		}
+		.bottom-tab:hover{
+		    top:50vh;
+		}
+		.bottom-tab .content{
+		    padding: 10px 20px;
+		    overflow: auto;
+		    font-size: 15px;
+		    background-color: #222;
+		    height: 100%;
 		}
 	</style>
 	<script>
