@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Slider</title>
+</head>
+<body>
+	<div id="mySlider">
+		<div class="slides">
+			<div class="slide"><h1>just text</h1></div>
+			<div class="slide"><img src="https://cdn.pixabay.com/photo/2020/01/10/22/52/cat-4756360__340.jpg"><h1>Text on image</h1></div>
+			<div class="slide"><img src="https://cdn.pixabay.com/photo/2017/04/05/01/16/old-school-2203733__340.jpg"></div>
+			<div class="slide"><img src="https://cdn.pixabay.com/photo/2020/01/28/19/44/runner-4800810__340.jpg"></div>
+		</div>
+	</div>
+	<style>
+		body{
+			margin: 0;
+		}
+		#mySlider{
+			position: relative;
+			height: 100vh;
+			width: 100vw;
+		}
+		#mySlider .slides{
+			display: flex;
+			height: inherit;
+			width: inherit;
+		}
+		#mySlider .slide{
+			width: inherit;
+			height: inherit;
+			overflow:hidden;
+			position: relative;
+			opacity: 0;
+			max-width: 0;
+			transform-origin: left;
+			transition: .3s ease-out;
+		}
+		#mySlider .slide *{
+			position: absolute;
+		}
+		#mySlider img{
+			height: inherit;
+			width: inherit;
+			object-fit: cover;
+		}
+	</style>
+	<script>
+		var slides;
+		document.addEventListener("DOMContentLoaded", ()=>{
+			slides = document.querySelector('#mySlider>.slides').children;
+			for(var i = 0, slide; slide = slides[i]; i++){
+				slide.setAttribute("slide-cnt", i);
+			}
+			slides[0].style.opacity = 1;
+			slideShow();
+		});
+		var slidecnt = 0;
+		function slideShow(){
+			slides[slidecnt].style.opacity = 0;
+			slides[slidecnt].style.maxWidth = "0%";
+			if(slidecnt >= slides.length-1){
+				slidecnt = 0;
+			}else{
+				slidecnt++;
+			}
+			slides[slidecnt].style.opacity = 1;
+			slides[slidecnt].style.maxWidth = "100%";
+			console.log(slidecnt, slides.length);
+			setTimeout(slideShow,5000);
+		}
+	</script>
+</body>
+</html>
